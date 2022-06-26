@@ -11,14 +11,15 @@ import (
 )
 
 func main() {
-	// for range time.Tick(time.Minute * 15) {
+	// for range time.Tick(time.Minute * 10) {
 	// 	go func() {
 	dt := time.Now()
 	scraper := twitterscraper.New()
-	output, _ := os.Create("output.json")
+	output, _ := os.Create("/home/pi/code/scrape/output.json")
 	output.WriteString(fmt.Sprintf("{\"lastUpdated\":\"%s\",\"CMPmtb\":{", dt.Format("Mon 02 Jan 06 03:04 pm")))
 	re := regexp.MustCompile(`\r?\n|\"`)
 	i := 0
+	fmt.Println("I did something?")
 	for tweet := range scraper.GetTweets(context.Background(), "CMPmtb", 50) {
 		if tweet.Error != nil {
 			panic(tweet.Error)
